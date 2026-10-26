@@ -8,6 +8,9 @@ def main():
     pygame.init()
     Clock = pygame.time.Clock()
     dt = 0.0
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     P1 = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     while True:
@@ -18,11 +21,12 @@ def main():
                 return
             pass
         #supposed to update player rotation and movement
-        P1.update(dt)
+        updatable.update(dt)
         #renders the screen
         screen.fill("black")
         #renders the player sprite
-        P1.draw(screen)
+        for sprite in drawable:
+            sprite.draw(screen)
         #refreshes the screen
         pygame.display.flip()
         #ensures the refresh rate is locked to 60 because we don't need a bajillion fps of Asteroids
