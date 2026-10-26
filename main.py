@@ -1,5 +1,6 @@
+import sys
 import pygame
-from logger import log_state
+from logger import log_state, log_event
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from player import Player
 from asteroid import Asteroid
@@ -27,6 +28,11 @@ def main():
             pass
         #supposed to update entity rotation and movement
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.collides_with(P1):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
         #renders the screen
         screen.fill("black")
         #renders the player sprite
